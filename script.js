@@ -90,24 +90,24 @@ const showBooks = (books) => {
 const createCard = (book) => {
   const div = document.createElement("div");
   div.classList.add("card");
-
+  // console.log(book.id)
   let overview = book.overview;
 
   div.innerHTML = `
   <div class="image-container">
     <img
-      src="${book.Image}"
+      src="${book.image}"
       alt=""
     />
     <div class="button-container">
       <button onclick="addToWishlist('${book.id}')" class="button"><i class="fa-solid fa-heart"></i></button>
-      <button onclick="AddToCart" class="button">Add To Cart</button>
+      <button onclick="addToCart(${book.id})" class="button">Add To Cart</button>
     </div>
   </div>
   <div class="info-container">
     <h1>${book.name}</h1>
     <p>
-      ${overview}
+      ${overview>100?overview:overview.slice(0,50)+ '...'}
     </p>
   </div>
 
@@ -119,6 +119,7 @@ const createCard = (book) => {
 showBooks(bookList);
 
 const addToCart = (id) => {
+  console.log(id)
   cart.push(id);
 };
 
@@ -141,8 +142,9 @@ const displayCart = () => {
 const displayWishlist = () => {
   const wishlist = getWishlistItems();
   console.log(wishlist);
-
-  bookList.forEach((book) => {
+  
+  document.getElementById("wishlist").textContent = ``
+  wishlist.forEach((book) => {
     const div = createCard(book);
     document.getElementById("wishlist").appendChild(div);
   });

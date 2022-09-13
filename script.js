@@ -101,7 +101,7 @@ const createCard = (book) => {
     />
     <div class="button-container">
       <button onclick="addToWishlist('${book.id}')" class="button"><i class="fa-solid fa-heart"></i></button>
-      <button onclick="addToCart(${book.id})" class="button">Add To Cart</button>
+      <button onclick="addToCart('${book.id}')" class="button">Add To Cart</button>
     </div>
   </div>
   <div class="info-container">
@@ -119,10 +119,13 @@ const createCard = (book) => {
 showBooks(bookList);
 
 const addToCart = (id) => {
-  console.log(id)
-  cart.push(id);
+  // console.log(id)
+  if (cart.indexOf(id) === -1) {
+    
+    cart.push(id);
+  }
 };
-
+console.log(cart)
 const addToWishlist = (id) => {
   if (wishlistItems.indexOf(id) === -1) {
     wishlistItems.push(id);
@@ -132,7 +135,8 @@ const addToWishlist = (id) => {
 const displayCart = () => {
   const cart = getCartItems();
   console.log(cart);
-
+  
+  document.getElementById("cart").textContent = ``;
   cart.forEach((book) => {
     const div = createCard(book);
     document.getElementById("cart").appendChild(div);
@@ -143,7 +147,7 @@ const displayWishlist = () => {
   const wishlist = getWishlistItems();
   console.log(wishlist);
   
-  document.getElementById("wishlist").textContent = ``
+  document.getElementById("wishlist").textContent = ``;
   wishlist.forEach((book) => {
     const div = createCard(book);
     document.getElementById("wishlist").appendChild(div);
